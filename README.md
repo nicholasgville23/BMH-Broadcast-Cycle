@@ -625,9 +625,9 @@ Stability: Production Ready
 
 👨‍💻 Author
 
-dondaplayer1
+nicholasgville23
 GitHub: @nicholasgville23
-Repository: AWIPS-Broadcast-Message-Handler-BMH-Menu
+Repository: BMH-Broadcast-Cycle
 
 
 🙏 Acknowledgments
