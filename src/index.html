@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMH Broadcast Cycle - AWIPS CAVE D2D</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/bmh-menu.css">
+    <link rel="stylesheet" href="styles/broadcast-cycle.css">
+</head>
+<body>
+    <div class="bmh-container">
+        <!-- Header -->
+        <header class="bmh-header">
+            <div class="header-title">
+                <h1>AWIPS BMH - Broadcast Message Handler</h1>
+                <p class="nws-office">NWS Office: Chicago/Romeoville, Illinois/Indiana</p>
+            </div>
+            <div class="station-info">
+                <span class="station-id">Station ID: WNG689</span>
+                <span class="station-coverage">Valparaiso & Hebron, Indiana</span>
+            </div>
+        </header>
+
+        <!-- Main BMH Menu -->
+        <nav class="bmh-menu">
+            <ul class="menu-list">
+                <li><button class="menu-btn" id="btn-broadcast-cycle">Broadcast Cycle</button></li>
+                <li><button class="menu-btn" id="btn-current-time">Current Time Announcement</button></li>
+                <li><button class="menu-btn" id="btn-hazard-outlook">Hazardous Weather Outlook</button></li>
+                <li><button class="menu-btn" id="btn-severe-weather">Severe Weather Information</button></li>
+                <li><button class="menu-btn" id="btn-warngen">WarnGen (Warning Generator)</button></li>
+                <li><button class="menu-btn" id="btn-maintenance">Maintenance</button></li>
+                <li><button class="menu-btn" id="btn-tts">Text-to-Speech (TTS)</button></li>
+            </ul>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="bmh-content">
+            <!-- Broadcast Cycle Section -->
+            <section id="broadcast-cycle-section" class="content-section active">
+                <h2>Broadcast Cycle - WNG689</h2>
+                <div class="broadcast-cycle-panel">
+                    <div class="cycle-status">
+                        <p><strong>Status:</strong> <span id="cycle-status" class="status-indicator">Ready</span></p>
+                        <p><strong>Next Broadcast:</strong> <span id="next-broadcast" class="time-display">--:--:--</span></p>
+                    </div>
+                    <div class="cycle-controls">
+                        <button class="ctrl-btn" id="btn-start-cycle">Start Cycle</button>
+                        <button class="ctrl-btn" id="btn-pause-cycle">Pause</button>
+                        <button class="ctrl-btn" id="btn-stop-cycle">Stop</button>
+                    </div>
+                    <div class="cycle-queue">
+                        <h3>Broadcast Queue</h3>
+                        <ul id="broadcast-queue" class="queue-list">
+                            <li>Current Time Announcement</li>
+                            <li>Hazardous Weather Outlook (KLOT/LOT)</li>
+                            <li>Severe Weather Alerts (if any)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Current Time Announcement Section -->
+            <section id="current-time-section" class="content-section">
+                <h2>Current Time Announcement</h2>
+                <div class="time-announcement-panel">
+                    <div class="current-time">
+                        <p><strong>Current Time:</strong> <span id="current-time-display" class="time-display">--:--:--</span></p>
+                    </div>
+                    <div class="announcement-controls">
+                        <button class="ctrl-btn" id="btn-play-time">Play Announcement</button>
+                        <button class="ctrl-btn" id="btn-test-time">Test</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hazardous Weather Outlook Section -->
+            <section id="hazard-outlook-section" class="content-section">
+                <h2>Hazardous Weather Outlook - KLOT/LOT</h2>
+                <div class="hazard-panel">
+                    <div class="hazard-info">
+                        <p><strong>Office:</strong> Chicago/Romeoville (LOT)</p>
+                        <p><strong>ICAO Code:</strong> KLOT</p>
+                    </div>
+                    <div class="hazard-content">
+                        <textarea id="hazard-text" placeholder="Hazardous Weather Outlook content will appear here..." readonly></textarea>
+                    </div>
+                    <div class="hazard-controls">
+                        <button class="ctrl-btn" id="btn-update-hazard">Update from AWIPS</button>
+                        <button class="ctrl-btn" id="btn-play-hazard">Play via TTS</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Severe Weather Information Section -->
+            <section id="severe-weather-section" class="content-section">
+                <h2>Severe Weather Information (EAS-Tools)</h2>
+                <div class="severe-weather-panel">
+                    <div class="weather-alerts">
+                        <h3>Active Alerts</h3>
+                        <ul id="weather-alerts-list" class="alerts-list">
+                            <li>No active alerts</li>
+                        </ul>
+                    </div>
+                    <div class="weather-controls">
+                        <button class="ctrl-btn" id="btn-refresh-alerts">Refresh Alerts</button>
+                        <button class="ctrl-btn" id="btn-broadcast-alert">Broadcast Alert</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WarnGen Section -->
+            <section id="warngen-section" class="content-section">
+                <h2>WarnGen - Warning Generator GUI</h2>
+                <div class="warngen-panel">
+                    <div class="warngen-products">
+                        <h3>Available Products</h3>
+                        <ul id="warngen-products-list" class="products-list">
+                            <li>Winter Weather Warning</li>
+                            <li>Severe Thunderstorm Warning</li>
+                            <li>Tornado Warning</li>
+                            <li>Flash Flood Warning</li>
+                        </ul>
+                    </div>
+                    <div class="warngen-controls">
+                        <button class="ctrl-btn" id="btn-new-warning">Create New Warning</button>
+                        <button class="ctrl-btn" id="btn-edit-warning">Edit Warning</button>
+                        <button class="ctrl-btn" id="btn-broadcast-warning">Broadcast Warning</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Maintenance Section -->
+            <section id="maintenance-section" class="content-section">
+                <h2>Maintenance - Pronunciations & Settings</h2>
+                <div class="maintenance-panel">
+                    <div class="pronunciation-section">
+                        <h3>Pronunciations & Words</h3>
+                        <div class="pronunciation-controls">
+                            <input type="text" id="pronunciation-search" placeholder="Search words (e.g., Pulaski County)...">
+                            <button class="ctrl-btn" id="btn-search-pronunciation">Search</button>
+                        </div>
+                        <ul id="pronunciation-list" class="pronunciation-list">
+                            <li data-word="pulaski-county">
+                                <span class="word">Pulaski County</span>
+                                <span class="pronunciation">/pjuːˈlɑːski/</span>
+                            </li>
+                            <li data-word="valparaiso">
+                                <span class="word">Valparaiso</span>
+                                <span class="pronunciation">/ˌvælpərˈeɪzoʊ/</span>
+                            </li>
+                            <li data-word="hebron">
+                                <span class="word">Hebron</span>
+                                <span class="pronunciation">/ˈhɛbrən/</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="voice-settings">
+                        <h3>Voice Settings</h3>
+                        <div class="voice-selector">
+                            <label for="voice-select">Select Voice:</label>
+                            <select id="voice-select">
+                                <option value="paul" selected>VoiceText Paul</option>
+                                <option value="default">System Default</option>
+                            </select>
+                        </div>
+                        <div class="voice-controls">
+                            <button class="ctrl-btn" id="btn-play-selection">Play Selection</button>
+                            <button class="ctrl-btn" id="btn-test-voice">Test Voice</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TTS Window Section -->
+            <section id="tts-section" class="content-section">
+                <h2>Text-to-Speech (TTS) Window</h2>
+                <div class="tts-panel">
+                    <div class="tts-input">
+                        <label for="tts-text">Enter Text:</label>
+                        <textarea id="tts-text" placeholder="Enter text to speak..." rows="4"></textarea>
+                    </div>
+                    <div class="tts-controls">
+                        <button class="ctrl-btn" id="btn-speak">Speak</button>
+                        <button class="ctrl-btn" id="btn-pause-speech">Pause</button>
+                        <button class="ctrl-btn" id="btn-stop-speech">Stop</button>
+                    </div>
+                    <div class="tts-output">
+                        <p><strong>Audio Status:</strong> <span id="audio-status" class="status-indicator">Ready</span></p>
+                        <div id="audio-player" class="audio-player"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bmh-footer">
+            <p>&copy; 2026 AWIPS BMH Broadcast Cycle | Station WNG689 | NWS Chicago/Romeoville</p>
+            <p>License: Apache 2.0</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script src="js/broadcast-cycle.js"></script>
+    <script src="js/tts-engine.js"></script>
+    <script src="js/maintenance.js"></script>
+    <script src="js/awips-integration.js"></script>
+</body>
+</html>
